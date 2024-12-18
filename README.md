@@ -9,7 +9,7 @@ The idea is basically:
 * Then classify utf-8 and utf-16 in that order
   * utf-8 is the most likely encoding and has exponentially low false positive rate with file size
   * utf-16: the caveat is we require a BOM to guard against the many false positives. Alternatively
-    we could decode as utf-16-le/utf-16-be (no BOM) and check for precense of null bytes or control
+    we could decode as utf-16-le/utf-16-be (no BOM) and check for presence of null bytes or control
     characters like iso-8859-1 described below.
   * read in chunks and bail on first decode error -- this almost always happens in the
     first few bytes.
