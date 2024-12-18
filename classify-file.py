@@ -17,7 +17,6 @@ def main(files: list, batch_size: int = 1000):
                 ["file", "--brief", "--mime-type", *batch_files]
             )
             mime_types = output.decode("utf-8").strip().splitlines()
-            print(mime_types)
             for filename, mime in zip(batch_files, mime_types):
                 mime_type, encoding = mime.split("/")
                 if mime_type == "text":
