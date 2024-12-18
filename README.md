@@ -31,3 +31,13 @@ So it runs at about 250MB/s.
 
 A batched version of `file` on the other hand needs 7m48s to classify the same files, which is 20x
 slower.
+
+## Usage
+
+```
+$ time ./classify-pure-python.py /path/to/spack/opt/spack
+# outputs file paths in all.txt, utf-8.txt, utf-16.txt, iso-8859-1.txt
+
+$ time ./classify-file.py all.txt # or file -f all.txt
+# outputs file paths of text files in file.txt
+```
