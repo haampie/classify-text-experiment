@@ -8,13 +8,14 @@ The idea is basically:
 * First classify ELF / macho-O (i.e. binary to relocate)
 * Then classify utf-8 and utf-16 in that order
   * utf-8 is the most likely encoding and has exponentially low false positive rate with file size
+  * for utf-16 the caveat is we expect a BOM and don't try to decode as utf-16le / utf-16be
+    directly which do not need a BOM.
   * read in chunks and bail on first decode error -- this almost always happens in the
     first few bytes is much faster compared to the `file` utility which reads all bytes.
 * Then try iso-8859-1. Python does not raise decoding errors for it, so we use a heuristic:
   it is not iso-8859-1 if it contains null bytes or control characters 0x7F-0x9F.
 
-On my NVME disk with a warm cache, this is well over 10x faster than a batched `file` command, and
-classifies:
+On my NVME disk with a warm cache, it classifies:
 
 ```
 714782 total files
@@ -26,3 +27,6 @@ classifies:
 in 23.8s total time, consuming 6259353564 bytes of 129642132904 (so only 4.83% is read).
 
 So it runs at about 250MB/s.
+
+A batched version of `file` on the other hand needs 7m48s to classify the same files, which is 20x
+slower.

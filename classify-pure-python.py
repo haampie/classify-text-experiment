@@ -117,7 +117,7 @@ def run(spack_store: str):
 
 
 if __name__ == "__main__":
-    if not sys.argv[1:]:
+    if len(sys.argv) != 2:
         print(f"Usage: {sys.argv[0]} <spack store>")
         sys.exit(1)
     run(sys.argv[1])
