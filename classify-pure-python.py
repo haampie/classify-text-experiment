@@ -7,14 +7,14 @@ import stat
 import sys
 
 
-def print_progress(total_files, count_per_encoding, bytes_read, total_bytes):
+def print_progress(total_files, count_per_encoding, bytes_read, total_bytes, end="\r"):
     fraction = bytes_read / total_bytes * 100
     sys.stdout.write(
         f"{total_files:7d} files: "
         f"utf-8: {count_per_encoding['utf-8']:7d}, "
         f"utf-16: {count_per_encoding['utf-16']:7d}, "
         f"iso-8859-1: {count_per_encoding['iso-8859-1']:7d}. "
-        f"{bytes_read:12d} / {total_bytes:12d} bytes read " f"[{fraction: 6.2f}%]\r",
+        f"{bytes_read:12d} / {total_bytes:12d} bytes read " f"[{fraction: 6.2f}%]{end}",
     )
 
 
@@ -112,7 +112,7 @@ def run(spack_store: str):
                         total_files, count_per_encoding, bytes_read, total_bytes
                     )
 
-    print_progress(total_files, count_per_encoding, bytes_read, total_bytes)
+    print_progress(total_files, count_per_encoding, bytes_read, total_bytes, end="\n")
 
 
 if __name__ == "__main__":

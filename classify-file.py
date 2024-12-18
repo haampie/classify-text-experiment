@@ -4,8 +4,10 @@
 
 import subprocess
 import sys
-from itertools import batched
 
+def batched(items, size):
+    for i in range(0, len(items), size):
+        yield items[i:i + size]
 
 def main(files: list, batch_size: int = 1000):
     total_files = len(files)
