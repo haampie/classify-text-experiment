@@ -12,7 +12,7 @@ The idea is basically:
     we could decode as utf-16-le/utf-16-be (no BOM) and check for precense of null bytes or control
     characters like iso-8859-1 described below.
   * read in chunks and bail on first decode error -- this almost always happens in the
-    first few bytes is much faster compared to the `file` utility which reads all bytes.
+    first few bytes.
 * Then try iso-8859-1. Python does not raise decoding errors for it, so we use a heuristic:
   it is not iso-8859-1 if it contains null bytes or control characters 0x7F-0x9F.
 
